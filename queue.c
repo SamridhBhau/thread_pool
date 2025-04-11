@@ -3,8 +3,7 @@
 #include <string.h>
 #include "queue.h"
 
-int queue_init(struct queue *q, size_t max_length, size_t data_size){
-  q->max_length = max_length;
+int queue_init(struct queue *q, size_t data_size){
   q->queue_length = 0;
   q->data_size = data_size;
   q->head = q->tail = NULL;
@@ -19,18 +18,7 @@ bool isEmpty(struct queue *q){
   return false;
 }
 
-bool isFull(struct queue *q){
-  if (q->queue_length == q->max_length)
-    return true;
-
-  return false;
-}
-
 int enqueue(struct queue *q, void *data){
-  if (isFull(q)){
-    return 0;
-  }
-
   struct queue_node *q_node = malloc(sizeof(struct queue_node));
   q_node->data = malloc(q->data_size);
   memcpy(q_node->data, data, q->data_size);

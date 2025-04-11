@@ -10,18 +10,16 @@ struct queue_node {
 
 struct queue{
   size_t queue_length;
-  size_t max_length;
   size_t data_size;
   struct queue_node *head;
   struct queue_node *tail;
 };
 
 bool isEmpty(struct queue*);
-bool isFull(struct queue*);
 int dequeue(struct queue*, void *);
 int enqueue(struct queue*, void *);
 int queue_clear(struct queue*);
 int queue_peek(struct queue* q, void *data);
-int queue_init(struct queue*q, size_t max_length, size_t data_size);
+int queue_init(struct queue*q, size_t data_size);
 
 #endif

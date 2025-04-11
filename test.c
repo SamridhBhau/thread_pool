@@ -4,13 +4,15 @@
 
 int main() {
   struct queue q; 
-  if (queue_init(&q, 5, sizeof(int)) == 0){
+  if (queue_init(&q, sizeof(int)) == 0){
     perror("Initialization Failed\n");
     return 1;
   }
 
-  for (int i = 0; i < 10; i++){
+  int i = 0;
+  while(!isEmpty(&q)){
     enqueue(&q, &i);
+    i++;
   }
 
   for (int i = 0; i < 5; i++){
@@ -29,7 +31,7 @@ int main() {
     int age;
   };
 
-  if (queue_init(&q, 3, sizeof(struct person)) == 0){
+  if (queue_init(&q, sizeof(struct person)) == 0){
     perror("Initialization Failed\n");
     return 1;
   }
@@ -44,7 +46,7 @@ int main() {
 
   queue_clear(&q);
 
-  if (queue_init(&q, 6, sizeof(char *)) == 0){
+  if (queue_init(&q, sizeof(char *)) == 0){
     perror("Initialization Failed\n");
     return 1;
   }
