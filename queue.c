@@ -3,27 +3,13 @@
 #include <string.h>
 #include "queue.h"
 
-struct queue_node {
-  void *data;
-  struct queue_node *next;
-};
-
-struct queue{
-  size_t queue_length;
-  size_t max_length;
-  size_t data_size;
-  struct queue_node *head;
-  struct queue_node *tail;
-};
-
-struct queue *queue_init(size_t max_length, size_t data_size){
-  struct queue *q = malloc(sizeof(struct queue)); 
+int queue_init(struct queue *q, size_t max_length, size_t data_size){
   q->max_length = max_length;
   q->queue_length = 0;
   q->data_size = data_size;
   q->head = q->tail = NULL;
 
-  return q;
+  return 1;
 }
 
 bool isEmpty(struct queue *q){
@@ -85,7 +71,7 @@ int dequeue(struct queue *q, void *data){
   return 1;
 }
 
-int queue_destroy(struct queue *q){
+int queue_clear(struct queue *q){
 
   while (q->head != NULL){
     struct queue_node *q_node = q->head;
@@ -95,7 +81,6 @@ int queue_destroy(struct queue *q){
     free(q_node);
   }
 
-  free(q);
   return 1;
 }
 
