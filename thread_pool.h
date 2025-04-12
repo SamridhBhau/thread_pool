@@ -8,6 +8,7 @@
 struct work{
   void (*work)(void *);
   void *args;
+  size_t arg_size;
 };
 
 struct thread {
@@ -16,14 +17,24 @@ struct thread {
 };
 
 struct threadpool{
-  struct queue worker_queue;
   struct queue work_queue;
-  size_t size;
+  pthread_mutex_t work_queue_lock;  
+  size_t thread_created;
+
+  pthread_mutex_t queue_status;
   pthread_cond_t cond;
+
+  size_t thread_count;
+  pthread_mutex_t count_lock;
+
+  pthread_cond_t threads_idle;
+
+  bool stop;
 };
 
 int add_work(struct threadpool *p, void (*f)(void *), void *arg);
 int threadpool_init(struct threadpool *p, size_t size);
 void *consumer(void *pool);
+void threadpool_wait(struct threadpool *p);
 
 #endif
