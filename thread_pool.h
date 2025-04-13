@@ -8,7 +8,6 @@
 struct work{
   void (*work)(void *);
   void *args;
-  size_t arg_size;
 };
 
 struct thread {
@@ -18,13 +17,13 @@ struct thread {
 
 struct threadpool{
   struct queue work_queue;
-  pthread_mutex_t work_queue_lock;  
+  pthread_mutex_t queue_rw_mutex;  
   size_t thread_created;
 
   pthread_mutex_t queue_status;
   pthread_cond_t cond;
 
-  size_t thread_count;
+  size_t threads_working;
   pthread_mutex_t count_lock;
 
   pthread_cond_t threads_idle;

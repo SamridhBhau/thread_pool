@@ -1,11 +1,16 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include "thread_pool.h"
 
-void work(void *args){
-  int *arg = args;
-  printf("Inside #%u with arg: %d\n", (int)pthread_self(), *arg);
+struct task {
+  int id;
+};
 
+void work(void *arg){
+  struct task *t = (struct task *)arg;
+	printf("Thread %u working on %d\n", (int)pthread_self(), t->id);
+  free(t);
 }
 
 int main() {
@@ -13,8 +18,12 @@ int main() {
   threadpool_init(&pool, 3);
 
   int i;
-  for (i = 0; i < 50; i++){
-    add_work(&pool, work, (void *)(uintptr_t)i);
+
+  for (i = 0; i < 20; i++){
+    struct task *t1 = malloc(sizeof(struct task));
+    t1->id = i;
+
+    add_work(&pool, work, t1);
   }
 
   threadpool_wait(&pool);

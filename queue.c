@@ -84,3 +84,7 @@ int queue_peek(struct queue* q, void *data){
 
   return 0;
 }
+
+int queue_get_length(struct queue *q){
+  return q->queue_length;
+}
