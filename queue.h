@@ -22,5 +22,6 @@ int queue_clear(struct queue*);
 int queue_peek(struct queue* q, void *data);
 int queue_init(struct queue*q, size_t data_size);
 int queue_get_length(struct queue *q);
+int queue_destroy(struct queue *q);
 
 #endif

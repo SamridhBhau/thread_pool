@@ -9,7 +9,7 @@ struct task {
 
 void work(void *arg){
   struct task *t = (struct task *)arg;
-	printf("Thread %u working on %d\n", (int)pthread_self(), t->id);
+	printf("Thread %u with arg %d\n", (int)pthread_self(), t->id);
   free(t);
 }
 
@@ -27,5 +27,5 @@ int main() {
   }
 
   threadpool_wait(&pool);
-
+  threadpool_destroy(&pool);
 }

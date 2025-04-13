@@ -1,2 +1,3 @@
 *.o
 test
+valgrind-out.txt

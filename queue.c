@@ -88,3 +88,10 @@ int queue_peek(struct queue* q, void *data){
 int queue_get_length(struct queue *q){
   return q->queue_length;
 }
+
+int queue_destroy(struct queue *q){
+  queue_clear(q);
+  free(q);
+
+  return 0;
+}
